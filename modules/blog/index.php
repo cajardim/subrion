@@ -258,6 +258,7 @@ if (iaView::REQUEST_XML == $iaView->getRequestType()) {
         'title' => $iaCore->get('site') . ' :: ' . $iaView->title(),
         'description' => '',
         'link' => IA_URL . 'blog',
+        'image' => [],
         'item' => []
     ];
 
@@ -275,7 +276,9 @@ if (iaView::REQUEST_XML == $iaView->getRequestType()) {
         $blogbody = '';
         if ($entry['image']!='') {
             //Let's add the blog image as well, if used
-            $blogbody.= '<p><img src="' . IA_CLEAR_URL . 'uploads/' . $entry["image"] . '"/></p>';
+            list($path, $file) = explode('|', $entry['image']);
+            $blogbody.= '<p><img src="' . IA_CLEAR_URL . 'uploads/' . $path . 'thumbnail/' . $file . '"/></p>';
+            //$blogbody.= '<p><img src="' . IA_CLEAR_URL . 'uploads/' . $entry["image"] . '"/></p>';
         }
         $blogbody.= iaSanitize::tags($entry['body']);
 
